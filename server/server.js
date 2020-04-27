@@ -1,47 +1,21 @@
 require('./config/config');
+require('colors');
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const app = express();
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
+app.use(require('./routes/usuario'));
 
-
-app.get('/usuario', function(req, res) {
-    res.json('getUsuario');
-});
-
-app.post('/usuario', function(req, res) {
-
-    let body = req.body;
-
-    if (body.nombre === undefined) {
-        res.status(400).json({
-            ok: false,
-            mensaje: `El nombre es necesario: ${process.env.PORT}`
-        });
-    } else {
-        res.json({
-            usuario: body
-        });
-    }
-});
-
-app.put('/usuario/:id', function(req, res) {
-
-    let id = req.params.id;
-
-    res.json({
-        id
-    });
-});
-
-app.delete('/usuario', function(req, res) {
-    res.json('deleteUsuario');
-});
+mongoose.connect('mongodb+srv://cursonode:JMWeFsfFQ6zbXEq5@cluster0-z0fxa.mongodb.net/cafe', ({ useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }))
+    .then(console.log('Conectado a cafe'.blue))
+    .catch(error => console.log(error));
 
 app.listen(process.env.PORT, () => {
-    console.log(`Escuchando puerto ${process.env.PORT}`);
+    console.log(`Escuchando puerto ${process.env.PORT}`.blue);
 });
