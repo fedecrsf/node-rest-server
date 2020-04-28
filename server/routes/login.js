@@ -21,13 +21,13 @@ app.post('/login', function(req, res) {
         } else if (!usuarioDB) {
             res.status(400).json({
                 ok: false,
-                mensaje: `(Usuario) o contraseña incorrectos`
+                mensaje: `Usuario o contraseña incorrectos`
             });
         } else {
             if (!bcrypt.compareSync(body.password, usuarioDB.password)) {
                 res.status(400).json({
                     ok: false,
-                    mensaje: `Usuario o (contraseña) incorrectos`
+                    mensaje: `Usuario o contraseña incorrectos`
                 });
             } else {
 

@@ -86,27 +86,6 @@ app.put('/usuario/:id', [verificaToken, verificaUsuarioPut], (req, res) => {
 app.delete('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
 
     let id = req.params.id;
-    let body = _.pick(req.body, ['estado']);
-
-    /*Usuario.findByIdAndRemove(id, (err, usuarioBorrado) => {
-
-        if (err) {
-            res.status(400).json({
-                ok: false,
-                mensaje: err
-            });
-        } else if (!usuarioBorrado) {
-            res.json({
-                ok: false,
-                usuario: 'Usuario no encontrado'
-            });
-        } else {
-            res.json({
-                ok: true,
-                usuario: usuarioBorrado
-            });
-        }
-    });*/
 
     Usuario.findByIdAndUpdate(id, { estado: false }, { new: true, runValidators: true }, (err, usuarioBorrado) => {
 
