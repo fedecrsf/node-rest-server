@@ -10,9 +10,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
-app.use(require('./routes/usuario'));
 
-mongoose.connect('mongodb+srv://cursonode:JMWeFsfFQ6zbXEq5@cluster0-z0fxa.mongodb.net/cafe', ({ useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }))
+// Configuracion global de rutas
+app.use(require('./routes/index'));
+
+mongoose.connect(process.env.URL_DB, ({ useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }))
     .then(console.log('Conectado a cafe'.blue))
     .catch(error => console.log(error));
 
